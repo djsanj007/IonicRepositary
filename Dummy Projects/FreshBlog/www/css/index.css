@@ -1,0 +1,12 @@
+.thumbnail{
+    height: 42px;
+    border-radius: 21px;
+    float:left;
+    margin-right: 10px;  
+}
+.spinner svg {
+  width: 40px;
+  height: 40px;
+  stroke: #999;
+  fill: #999;
+}
