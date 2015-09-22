@@ -3,11 +3,12 @@ var FBApp= angular.module("FBApp",["ionic"]);
 FBApp.service("FBSvc",["$http", "$rootScope", FBSvc]);
 
 FBApp.controller("FBCtrl",
-                 ["$scope","$sce","$ionicLoading",
+                 ["$scope","$sce",
+                  "$ionicLoading","$ionicListDelegate",
                   "FBSvc", FBCtrl]);
 
 
-function FBCtrl($scope, $sce, $ionicLoading, FBSvc){
+function FBCtrl($scope, $sce, $ionicLoading,$ionicListDelegate, FBSvc){
     
     $ionicLoading.show({template: '<ion-spinner icon="dots "/>'});
     $scope.blogs=[];
@@ -28,10 +29,17 @@ function FBCtrl($scope, $sce, $ionicLoading, FBSvc){
         $ionicLoading.hide();
     });
     
+    $scope.shareBlog = function ($index){
+        $ionicListDelegate.closeOptionButtons()
+        console.log("ShareBlog URL: "+$scope.blogs[$index].URL);
+    }
     
-    
+    $scope.reloadBlogs = function(){
+        $scope.blogs=[];
+        $scope.params=[];
+        FBSvc.loadBlogs();
+    }
     $scope.loadMoreBlogs = function(){
-    
         FBSvc.loadBlogs($scope.params);
     }
 }
