@@ -4,13 +4,22 @@ FBApp.service("FBSvc",["$http", "$rootScope", FBSvc]);
 
 FBApp.controller("FBCtrl",
                  ["$scope","$sce",
-                  "$ionicLoading","$ionicListDelegate",
+                  "$ionicLoading","$ionicListDelegate","$ionicPlatform",
                   "FBSvc", FBCtrl]);
 
 
-function FBCtrl($scope, $sce, $ionicLoading,$ionicListDelegate, FBSvc){
+function FBCtrl($scope, $sce, $ionicLoading,$ionicListDelegate,$ionicPlatform FBSvc){
     
     $ionicLoading.show({template: '<ion-spinner icon="dots "/>'});
+    
+     $scope.deviceReady = false;
+    
+    $ionicPlatform.ready(function() {
+        $scope.$apply(function() {
+            $scope.deviceReady = true;
+        });
+    });
+    
     $scope.blogs=[];
     $scope.params=[];
     $scope.$on("FBApp.Blogs" , function(_, result){
