@@ -8,7 +8,7 @@ FBApp.controller("FBCtrl",
                   "FBSvc", FBCtrl]);
 
 
-function FBCtrl($scope, $sce, $ionicLoading,$ionicListDelegate,$ionicPlatform FBSvc){
+function FBCtrl($scope, $sce, $ionicLoading,$ionicListDelegate,$ionicPlatform, FBSvc){
     
     $ionicLoading.show({template: '<ion-spinner icon="dots "/>'});
     
@@ -28,6 +28,7 @@ function FBCtrl($scope, $sce, $ionicLoading,$ionicListDelegate,$ionicPlatform FB
                 name: b.author.name,
                 profilePic:b.author.avatar_URL,
                 title:$sce.trustAsHtml(b.title),
+                content:$sce.trustAsHtml(b.content),
                 URL:b.URL,
                 excerpt:$sce.trustAsHtml(b.excerpt)
             });
@@ -41,6 +42,10 @@ function FBCtrl($scope, $sce, $ionicLoading,$ionicListDelegate,$ionicPlatform FB
     $scope.shareBlog = function ($index){
         $ionicListDelegate.closeOptionButtons()
         console.log("ShareBlog URL: "+$scope.blogs[$index].URL);
+    }
+    
+    $scope.openBlog = function ($index){
+        console.log("Blog Content: "+$scope.blogs[$index].content);
     }
     
     $scope.reloadBlogs = function(){
